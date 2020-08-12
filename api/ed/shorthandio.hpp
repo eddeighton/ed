@@ -6,7 +6,7 @@
 
 #include "common/assert_verify.hpp"
 #include "common/variant_utils.hpp"
-#include "compose.hpp"
+#include "common/compose.hpp"
 
 #include <vector>
 #include <type_traits>

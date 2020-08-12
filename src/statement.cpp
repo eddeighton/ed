@@ -1,6 +1,6 @@
 #include "ed/statement.hpp"
 
-#include "compose.hpp"
+#include "common/compose.hpp"
 #include "common/variant_utils.hpp"
 
 #include <algorithm>

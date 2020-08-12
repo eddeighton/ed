@@ -36,6 +36,7 @@ function( compiler_define_boost targetname )
 	target_compile_definitions( ${targetname} PRIVATE -DBOOST_ALL_NO_LIB -D_BOOST_ALL_NO_LIB )
 	target_compile_definitions( ${targetname} PRIVATE -DBOOST_ENABLE_ASSERT_HANDLER -D_BOOST_ENABLE_ASSERT_HANDLER )
 	target_compile_definitions( ${targetname} PRIVATE -DBOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE -D_BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE )
+	target_compile_definitions( ${targetname} PRIVATE -DBOOST_BIND_GLOBAL_PLACEHOLDERS -D_BOOST_BIND_GLOBAL_PLACEHOLDERS )
 endfunction( compiler_define_boost )
 
 function( link_boost targetname lib )

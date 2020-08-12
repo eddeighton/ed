@@ -10,7 +10,7 @@
 
 #include "common/assert_verify.hpp"
 #include "common/file.hpp"
-#include "stl.hpp"
+#include "common/stl.hpp"
 
 #include <fstream>
 #include <iterator>
@@ -453,6 +453,14 @@ std::string saveNodeToFile( const std::string& strFile, const Node& node )
         of << *i;
 
     return strActualFilePath;
+}
+
+bool operator==( const File& left, const File& right )
+{
+    Node n1, n2;
+    left.toNode( n1 );
+    right.toNode( n2 );
+    return n1 == n2;
 }
 
 }

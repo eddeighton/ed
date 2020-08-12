@@ -1,6 +1,6 @@
 
-#include "common/stl.h"
-#include "common/compose.h"
+#include "common/stl.hpp"
+#include "common/compose.hpp"
 
 #include <gtest/gtest.h>
 #include <utility>

@@ -30,8 +30,6 @@ set( ED_SOURCES_API
     ${ED_API_DIR}/ed/type.hpp )
 
 set( ED_SOURCES_SRC
-    ${ED_SRC_DIR}/compose.hpp
-    ${ED_SRC_DIR}/stl.hpp
     ${ED_SRC_DIR}/argument.cpp
     ${ED_SRC_DIR}/code.cpp
     ${ED_SRC_DIR}/declarator.cpp

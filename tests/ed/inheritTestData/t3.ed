@@ -1,0 +1,17 @@
+Numeric
+{
+	Int
+	{
+		name( "int"; )
+		size( 4 )
+		signed( true )
+	}
+	Float
+	{
+		name( "float"; )
+		size( 4 )
+		signed( true )
+	}
+}
+
+i Numeric::Float( 123 )

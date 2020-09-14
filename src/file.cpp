@@ -220,12 +220,14 @@ File::File( FileSystem& filesystem, const std::string& strPath )
         m_children.push_back( new EdNode( *i, this ) );
 
     //process inheritance
+    using namespace boost::placeholders;
     std::for_each( m_children.begin(), m_children.end(), boost::bind( &File::inheritNode, this, _1 ) );
 }
 
 void File::inheritNode( EdNode* pNode )
 {
     inheritStatement( pNode );
+    using namespace boost::placeholders;
     std::for_each( pNode->m_children.begin(), pNode->m_children.end(), boost::bind( &File::inheritNode, this, _1 ) );
 }
 

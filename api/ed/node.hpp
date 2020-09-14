@@ -15,7 +15,7 @@
 #include <boost/fusion/include/adapt_struct.hpp>
 
 #include <boost/filesystem.hpp>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 

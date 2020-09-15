@@ -7,11 +7,16 @@ cmake_minimum_required(VERSION 2.8)
 set( COMMON_INSTALL_PATH ${ED_ROOT_DIR}/../../common/install/ )
 message( "Warning - using temporary hack to auto discover common installation" )
 
+
+
+set( CMAKE_PREFIX_PATH "${COMMON_INSTALL_PATH}/share;${CMAKE_PREFIX_PATH}" )
+find_package( common )
+
 #message( "Ed Root Dir : ${ED_ROOT_DIR}" )
 #message( "Found command install at ${ED_ROOT_DIR}/../../common/install" )
 #message( "Found command install at ${COMMON_INSTALL_PATH}" )
 
-include( ${COMMON_INSTALL_PATH}/share/common-config.cmake )
+#include( ${COMMON_INSTALL_PATH}/share/common-config.cmake )
 
 #find_package( common )
 

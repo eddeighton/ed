@@ -28,6 +28,7 @@ set( ED_TESTS_SOURCE
     ${ED_ROOT_DIR}/tests/expressionTests.cpp
     ${ED_ROOT_DIR}/tests/fileRefTests.cpp
     ${ED_ROOT_DIR}/tests/fileTests.cpp
+    ${ED_ROOT_DIR}/tests/findTests.cpp
     ${ED_ROOT_DIR}/tests/identifierTests.cpp
     ${ED_ROOT_DIR}/tests/nodeioTests.cpp
     ${ED_ROOT_DIR}/tests/nodeTests.cpp

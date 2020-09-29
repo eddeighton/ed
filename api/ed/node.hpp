@@ -66,6 +66,8 @@ inline Node make_node( const std::string& strIdentifier )
     return Node( Statement( Declarator( Identifier( strIdentifier ) ) ) );
 }
 
+boost::optional< const Node& > find( const Node& node, const std::string& strReference );
+
 }
  
 BOOST_FUSION_ADAPT_STRUCT(

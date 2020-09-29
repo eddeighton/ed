@@ -1,9 +1,0 @@
-Float
-{
-	x y z
-}
-
-e Float
-{
-	z( 0 )
-}

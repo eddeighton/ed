@@ -163,7 +163,7 @@ template< class T, class TIdent >
 void subtree( INodeStream& is, const TIdent& ident, T& data )
 {
     boost::optional< const Node& > n = is.get( ident );
-    VERIFY_RTE_MSG( n, "Failed to locate node: " << ident << "\n" )
+    VERIFY_RTE_MSG( n, "Failed to locate node: " << ident << "\n" );
     INodeStream i( n.get() );
     i >> data;
 }

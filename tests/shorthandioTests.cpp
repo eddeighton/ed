@@ -6,8 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <boost/bind.hpp>
-
 #include <algorithm>
 #include <tuple>
 

@@ -13,6 +13,7 @@
 #include "ed/file.hpp"
 
 #include <boost/tokenizer.hpp>
+#include <boost/bind/bind.hpp>
 
 #include <string>
 #include <iterator>

@@ -13,7 +13,6 @@
 #include "ed/file.hpp"
 
 #include <boost/tokenizer.hpp>
-#include <boost/bind/bind.hpp>
 
 #include <string>
 #include <iterator>
@@ -311,9 +310,8 @@ void structuredPrint( OutStream& os, const Node& value )
     if( !isEmpty( value ) )
     {
         os << Push( BODY_OPEN );
-        using namespace boost::placeholders;
         std::for_each( begin( value ), end( value ),
-            boost::bind( &structuredPrint, boost::ref( os ), _1 ) );
+            [ &os ]( const Node& n ) { structuredPrint( os, n ); } );
         os << Pop( BODY_CLOSE );
     }
 }
@@ -330,9 +328,8 @@ void structuredPrintEdNode( OutStream& os, const EdNode* pValue )
     if( !isEmpty( *pValue ) )
     {
         os << Push( BODY_OPEN );
-        using namespace boost::placeholders;
         std::for_each( begin( *pValue ), end( *pValue ),
-            boost::bind( &structuredPrintEdNode, boost::ref( os ), _1 ) );
+            [ &os ]( const EdNode* pNode ) { structuredPrintEdNode( os, pNode ); } );
         os << Pop( BODY_CLOSE );
     }
 }

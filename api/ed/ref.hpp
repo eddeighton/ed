@@ -40,6 +40,10 @@ class Reference : public std::vector< RefVariant >
 {
 public:
     Reference(){}
+    Reference( std::initializer_list< Ed::Identifier > events )
+    {
+        std::copy( events.begin(), events.end(), std::back_inserter( *this ) );
+    }
     Reference( const_iterator iBegin, const_iterator iEnd ) : std::vector< RefVariant >( iBegin, iEnd ) {}
     Reference& operator+=( const Reference& ref )
     {

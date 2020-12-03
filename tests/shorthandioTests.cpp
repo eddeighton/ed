@@ -269,3 +269,40 @@ TEST( EdGrammarTests, ShorthandIO_Test12 )
     os << s;
     ASSERT_EQ( "(1,2,(5,6,7,(9,10,11,12)))", os.str() );
 }
+
+TEST( EdGrammarTests, ShorthandIO_FileRefVector )
+{
+    using namespace Ed;
+    
+    Ed::FileRef fileRef1;
+    ASSERT_TRUE( Ed::parse( "/abc", fileRef1 ).first );
+    Ed::FileRef fileRef2;
+    ASSERT_TRUE( Ed::parse( "/a/b/c", fileRef2 ).first );
+    
+    Shorthand s;
+    {
+        std::vector< FileRef > fileRefs;
+        fileRefs.push_back( fileRef1 );
+        fileRefs.push_back( fileRef2 );
+        
+        OShorthandStream os( s );
+        serialiseOut( os, fileRefs );
+    }
+    
+    {
+        Ed::IShorthandStream is( s );
+        
+        std::vector< FileRef > fileRefs;
+        serialiseIn( is, fileRefs );
+        
+        ASSERT_EQ( 2U, fileRefs.size() );
+        ASSERT_EQ( fileRef1, fileRefs[ 0 ] );
+        ASSERT_EQ( fileRef2, fileRefs[ 1 ] );
+    }
+    
+    {
+        std::ostringstream os;
+        os << s;
+        ASSERT_EQ( "(/abc,/a/b/c)", os.str() );
+    }
+}

@@ -1,19 +1,18 @@
 cmake_minimum_required(VERSION 2.8)
 
 #get boost
-include( ${ED_ROOT_DIR}/cmake/boost_include.cmake )
-
-#get common
-include( ${ED_ROOT_DIR}/cmake/common_include.cmake )
+include( ${WORKSPACE_ROOT_PATH}/thirdparty/boost/boost_include.cmake )
 
 #get gtest
-include( ${ED_ROOT_DIR}/cmake/gtest_include.cmake )
+include( ${WORKSPACE_ROOT_PATH}/thirdparty/gtest/gtest_include.cmake )
+
+#get common
+include( ${WORKSPACE_ROOT_PATH}/src/common/common_include.cmake )
 
 #get ed
 include( ${ED_ROOT_DIR}/cmake/ed_include.cmake )
 
 #get the tests
-
 set( ED_TESTS_SOURCE
     
     #common/
@@ -45,6 +44,8 @@ add_executable( ed_tests
 					${ED_TESTS_SOURCE}
 				)
 
+target_link_libraries( ed_tests edlib )
+
 ##configure all debug builds to have 'd' postfix
 set_target_properties( ed_tests PROPERTIES DEBUG_POSTFIX d )
 set_target_properties( ed_tests PROPERTIES FOLDER ed_tests )
@@ -53,7 +54,6 @@ link_boost( ed_tests filesystem )
 link_boost( ed_tests iostreams )
 link_boost( ed_tests serialization )
 link_common( ed_tests )
-link_ed( ed_tests )
 link_gtest( ed_tests )
 link_gtest_main( ed_tests )
 

@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
 #get boost
-include( ${ED_ROOT_DIR}/cmake/boost_include.cmake )
+include( ${WORKSPACE_ROOT_PATH}/thirdparty/boost/boost_include.cmake )
+
+#get gtest
+include( ${WORKSPACE_ROOT_PATH}/thirdparty/gtest/gtest_include.cmake )
 
 #get common
-include( ${ED_ROOT_DIR}/cmake/common_include.cmake )
+include( ${WORKSPACE_ROOT_PATH}/src/common/common_include.cmake )
 
 set( ED_SOURCES_API
     ${ED_API_DIR}/ed/argument.hpp

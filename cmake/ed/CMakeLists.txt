@@ -59,6 +59,8 @@ add_library( edlib STATIC
 		${COMMON_INCLUDE_HEADERS}
 		${ED_SOURCES} 
 		)
+
+target_include_directories( edlib PUBLIC ${ED_API_DIR})
 		
 set_target_properties( edlib PROPERTIES FOLDER edlib )
 set_target_properties( edlib PROPERTIES DEBUG_POSTFIX d )

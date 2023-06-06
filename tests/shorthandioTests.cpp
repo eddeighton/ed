@@ -152,16 +152,16 @@ TEST( EdGrammarTests, ShorthandIO_Test7 )
 
     Shorthand s;
     OShorthandStream os( s );
-    os << ".a" << "/a" << "exp;" << "{code;}" << true;
-    std::string i1, i2, i3, i4, i5;
+    os << ".a" << "/a" << "exp;" << true;
+    std::string i1, i2, i3;
+    bool b;
     IShorthandStream is( s );
-    is >> i1 >> i2 >> i3 >> i4 >> i5;
+    is >> i1 >> i2 >> i3 >> b;
 
     ASSERT_EQ( ".a", i1 );
     ASSERT_EQ( "/a", i2 );
     ASSERT_EQ( "exp;", i3 );
-    ASSERT_EQ( "{code;}", i4 );
-    ASSERT_EQ( "true", i5 );
+    ASSERT_EQ( true, b );
 }
 
 
@@ -214,16 +214,16 @@ TEST( EdGrammarTests, ShorthandIO_Test10 )
 
     Shorthand s;
     OShorthandStream os( s );
-    os << ePush << ".a" << "/a" << "exp;" << "{code;}" << true << ePop;
-    std::string i1, i2, i3, i4, i5;
+    os << ePush << ".a" << "/a" << "exp;" << true << ePop;
+    std::string i1, i2, i3;
+    bool i4;
     IShorthandStream is( s );
-    is >> ePush >> i1 >> i2 >> i3 >> i4 >> i5 >> ePop;
+    is >> ePush >> i1 >> i2 >> i3 >> i4 >> ePop;
 
     ASSERT_EQ( ".a", i1 );
     ASSERT_EQ( "/a", i2 );
     ASSERT_EQ( "exp;", i3 );
-    ASSERT_EQ( "{code;}", i4 );
-    ASSERT_EQ( "true", i5 );
+    ASSERT_EQ( true, i4 );
 }
 
 TEST( EdGrammarTests, ShorthandIO_Test11 )

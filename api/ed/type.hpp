@@ -6,8 +6,8 @@
 
 #include <boost/spirit/include/qi.hpp>
 
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/phoenix/core.hpp>
+#include <boost/phoenix/stl.hpp>
 
 #include <string>
 #include <vector>

@@ -39,7 +39,7 @@ struct TagConvertVisitorIndex : boost::static_visitor< boost::optional< unsigned
         return uiIndex;
     }
     template< class T >
-    boost::optional< unsigned int > operator()( const T& other ) const
+    boost::optional< unsigned int > operator()( const T& ) const
     {
         return boost::optional< unsigned int >();
     }

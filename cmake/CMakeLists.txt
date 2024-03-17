@@ -2,17 +2,7 @@ cmake_minimum_required( VERSION 3.1...3.16 )
 
 project( Ed VERSION 1.0 LANGUAGES CXX )
 
-#insist on ALL projects using c++ 17
-set( CMAKE_CXX_STANDARD 17 )
-
-######################################
-#win32 specific settings
-IF( ${WIN32} )
-
-add_definitions(-D_WIN32_WINNT=0x0601)
-add_definitions(-DNOMINMAX -D_NOMINMAX)
-
-ENDIF( ${WIN32} )
+include( ${WORKSPACE_ROOT_PATH}/src/env/src/common_settings.cmake )
 
 #setup some common directories from the root of the project
 set( CMAKE_PARENT_PATH ${CMAKE_CURRENT_LIST_DIR}/.. )
@@ -22,12 +12,6 @@ set( ED_SRC_DIR ${ED_ROOT_DIR}/src )
 
 include_directories( ${ED_API_DIR} )
 include_directories( ${ED_SRC_DIR} )
-
-#enable folders within generated IDE build systems
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-#ensure language runtimes and other system libs are copied to installation folder
-include (InstallRequiredSystemLibraries)
 
 add_subdirectory( ed )
 add_subdirectory( ed_tests )

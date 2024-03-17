@@ -207,7 +207,7 @@ void File::inheritNode( EdNode* pNode )
     inheritStatement( pNode );
     File* pThisFile = this;
     std::for_each( pNode->m_children.begin(), pNode->m_children.end(),
-                   [ pThisFile ]( EdNode* pNode ) { pThisFile->inheritNode( pNode ); } );
+                   [ pThisFile ]( EdNode* pChildNode ) { pThisFile->inheritNode( pChildNode ); } );
 }
 
 boost::optional< const EdNode& >
@@ -345,13 +345,13 @@ struct LocateRefFromRootVisitor : boost::static_visitor< boost::optional< const 
         return result;
     }
 
-    boost::optional< const EdNode& > operator()( const RefActionType& type ) const
+    boost::optional< const EdNode& > operator()( const RefActionType& ) const
     {
         THROW_RTE( "Invalid use of ref . in inheritance directive" );
         return {};
     }
 
-    boost::optional< const EdNode& > operator()( const Ref& type ) const
+    boost::optional< const EdNode& > operator()( const Ref& ) const
     {
         THROW_RTE( "Invalid use of ref . in inheritance directive" );
         return {};
@@ -383,7 +383,6 @@ boost::optional< const EdNode& > File::locateNodeToInherit( EdNode* pNode )
     FileRef::Vector files;
     if( pNode->m_statement.getFileRefs( files ) )
     {
-        const FileRef&          inheritedFile = files.back();
         boost::filesystem::path targetFile;
         getFileRefPath( files.back(), m_filePath, targetFile );
 

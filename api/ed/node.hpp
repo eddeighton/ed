@@ -20,28 +20,27 @@
 
 namespace Ed
 {
-    
+
 class Node
 {
 public:
-    typedef std::vector< Node > Vector;
+    using Vector = std::vector< Node >;
 
-    Node()
-    {}
+    Node() = default;
 
-    Node( const Statement& _statement )
-        :   statement( _statement )
+    inline Node( Statement _statement )
+        : statement( std::move( _statement ) )
     {
     }
 
-    Shorthand& getShorty()
+    inline Shorthand& getShorty()
     {
         if( !statement.shorthand )
-            statement.shorthand = Shorthand();
+            statement.shorthand = Shorthand{};
         return statement.shorthand.get();
     }
 
-    boost::optional< const Shorthand& > getShorty() const
+    inline boost::optional< const Shorthand& > getShorty() const
     {
         boost::optional< const Shorthand& > result;
         if( statement.shorthand )
@@ -50,69 +49,75 @@ public:
     }
 
     Statement statement;
-    Vector children;
+    Vector    children;
 };
-ParseResult parse( const std::string& strInput, Node& ed, std::ostream& errorStream );
-ParseResult parse( const std::string& strInput, std::vector< Node >& ed, std::ostream& errorStream );
-bool operator==( const Node& left, const Node& right );
-inline const Statement& getStatement( const Node& node )            { return node.statement; }
-inline Node::Vector::const_iterator begin( const Node& node )       { return node.children.begin(); }
-inline Node::Vector::const_iterator end( const Node& node )         { return node.children.end(); }
-inline bool isEmpty( const Node& node )                             { return node.children.empty(); }
 
-inline Node make_node( const std::string& strIdentifier ) 
+ParseResult             parse( const std::string& strInput, Node& ed, std::ostream& errorStream );
+ParseResult             parse( const std::string& strInput, std::vector< Node >& ed, std::ostream& errorStream );
+bool                    operator==( const Node& left, const Node& right );
+
+inline const Statement& getStatement( const Node& node )
 {
-    return Node( Statement( Declarator( Identifier( strIdentifier ) ) ) );
+    return node.statement;
+}
+inline Node::Vector::const_iterator begin( const Node& node )
+{
+    return node.children.begin();
+}
+inline Node::Vector::const_iterator end( const Node& node )
+{
+    return node.children.end();
+}
+inline bool isEmpty( const Node& node )
+{
+    return node.children.empty();
+}
+
+inline Node make_node( const std::string& strIdentifier )
+{
+    return Node{ Statement( Declarator( Identifier( strIdentifier ) ) ) };
 }
 
 boost::optional< const Node& > find( const Node& node, const std::string& strReference );
 
-}
- 
-BOOST_FUSION_ADAPT_STRUCT(
-    Ed::Node,
-    (Ed::Statement, statement)
-    (std::vector<Ed::Node>, children)
-)
+} // namespace Ed
+
+BOOST_FUSION_ADAPT_STRUCT( Ed::Node, ( Ed::Statement, statement )( std::vector< Ed::Node >, children ) )
 
 namespace Ed
 {
-    
-static const char BODY_OPEN = '{';
+
+static const char BODY_OPEN  = '{';
 static const char BODY_CLOSE = '}';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//Ed
-template< typename Iterator >
+// Ed
+template < typename Iterator >
 class EDGrammar : public boost::spirit::qi::grammar< Iterator, SkipGrammar< Iterator >, std::vector< Node >() >
 {
 public:
-    EDGrammar() : EDGrammar::base_type( m_main_rule, "ed" )
+    EDGrammar()
+        : EDGrammar::base_type( m_main_rule, "ed" )
     {
         using namespace boost::spirit;
         using namespace boost::spirit::qi;
         using namespace boost::phoenix;
 
-        m_rule_block =    m_grammarStatement[ at_c<0>(_val) = qi::_1 ] > 
-                        -(
-                            char_( BODY_OPEN ) >> 
-                            *m_rule_block[ push_back( at_c<1>(_val), qi::_1 ) ]  >
-                            char_( BODY_CLOSE )
-                        );
+        m_rule_block = m_grammarStatement[ at_c< 0 >( _val ) = qi::_1 ]
+                       > -( char_( BODY_OPEN ) >> *m_rule_block[ push_back( at_c< 1 >( _val ), qi::_1 ) ]
+                            > char_( BODY_CLOSE ) );
 
         m_main_rule = *m_rule_block[ push_back( _val, qi::_1 ) ];
 
         m_rule_block.name( "block" );
     }
-    
+
     StatementGrammar< Iterator >                                                        m_grammarStatement;
     boost::spirit::qi::rule< Iterator, SkipGrammar< Iterator >, Node() >                m_rule_block;
     boost::spirit::qi::rule< Iterator, SkipGrammar< Iterator >, std::vector< Node >() > m_main_rule;
-
 };
 
+} // namespace Ed
 
-}
-
-#endif //ED_25_12_2013
+#endif // ED_25_12_2013

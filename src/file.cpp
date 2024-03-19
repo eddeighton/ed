@@ -93,7 +93,7 @@ struct TagConvertVisitorIndex : boost::static_visitor< boost::optional< unsigned
 {
     boost::optional< unsigned int > operator()( unsigned int uiIndex ) const { return uiIndex; }
     template < class T >
-    boost::optional< unsigned int > operator()( const T& other ) const
+    boost::optional< unsigned int > operator()( const T& ) const
     {
         return {};
     }
@@ -210,8 +210,8 @@ void File::inheritNode( EdNode* pNode )
                    [ pThisFile ]( EdNode* pChildNode ) { pThisFile->inheritNode( pChildNode ); } );
 }
 
-boost::optional< const EdNode& >
-File::lookupType( const EdNode* pNode, const TypeList::const_iterator iter, const TypeList::const_iterator iterEnd )
+boost::optional< const EdNode& > File::lookupType( const EdNode* pNode, const TypeList::const_iterator iter,
+                                                   const TypeList::const_iterator iterEnd )
 {
     VERIFY_RTE( pNode );
 
